@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Cart Billing</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <div id="items"></div>
+    <button onclick="checkout()">Checkout</button>
+
+    <script>
+        function checkout() {
+            let items = [{name: 'Milk', price: 1.5}, {name: 'Bread', price: 2.0}];
+            fetch("/checkout", {
+                method: "POST",
+                body: JSON.stringify({ items: items }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.json())
+            .then(data => alert(`Total: $${data.total}`));
+        }
+    </script>
+</body>
+</html>
